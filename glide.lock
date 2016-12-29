@@ -1,0 +1,14 @@
+hash: 1480e10d7bb785b5e88c7bb20181e042694a79612f99a4e4819b9c20b68a9775
+updated: 2016-12-25T16:31:53.489745066-08:00
+imports:
+- name: golang.org/x/crypto
+  version: f6b343c37ca80bfa8ea539da67a0b621f84fab1d
+  subpackages:
+  - acme
+  - acme/autocert
+- name: golang.org/x/net
+  version: 45e771701b814666a7eb299e6c7a57d0b1799e91
+  subpackages:
+  - context
+  - context/ctxhttp
+testImports: []
