@@ -13,29 +13,33 @@ import (
 func main() {
 	port := flag.Int("port", 443, "the port on which to run keewee")
 	host := flag.String("host", "", "the host for which to retrieve certificates, e.g. example.com")
+	insecure := flag.Bool("insecure", false, "whether or not to disable TLS")
 	flag.Parse()
 
-	if *host == "" {
+	if *host == "" && !*insecure {
 		fmt.Println("No host speficied")
 		os.Exit(1)
 	}
 
-	fmt.Printf("starting keewee on port %d with host %s", *port, *host)
-
 	mux := http.NewServeMux()
 	mux.Handle("/", http.FileServer(http.Dir("/static")))
 
-	m := autocert.Manager{
-		Cache:      autocert.DirCache("/cache"),
-		Prompt:     autocert.AcceptTOS,
-		HostPolicy: autocert.HostWhitelist(*host),
-	}
-
 	s := &http.Server{
-		Addr:      fmt.Sprintf(":%d", *port),
-		Handler:   mux,
-		TLSConfig: &tls.Config{GetCertificate: m.GetCertificate},
+		Addr:    fmt.Sprintf(":%d", *port),
+		Handler: mux,
 	}
 
-	s.ListenAndServeTLS("", "")
+	fmt.Printf("starting keewee on port %d", *port)
+	if *insecure {
+		s.ListenAndServe()
+	} else {
+		fmt.Printf("using host %s", *host)
+		m := autocert.Manager{
+			Cache:      autocert.DirCache("/cache"),
+			Prompt:     autocert.AcceptTOS,
+			HostPolicy: autocert.HostWhitelist(*host),
+		}
+		s.TLSConfig = &tls.Config{GetCertificate: m.GetCertificate}
+		s.ListenAndServeTLS("", "")
+	}
 }
