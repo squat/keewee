@@ -2,9 +2,9 @@
 
 [![Build Status](https://travis-ci.org/squat/keewee.svg?branch=master)](https://travis-ci.org/squat/keewee)
 
-keewee makes it easy to launch and secure a self-hosted (KeeWeb)[https://github.com/keeweb/keeweb] instance.
+keewee makes it easy to launch and secure a self-hosted [KeeWeb](https://github.com/keeweb/keeweb) instance.
 
-To secure your instance, keewee only allows access with encrypted connections. keewee uses (Let's Encrypt)[https://letsencrypt.org/] to automatically obtain and renew TLS certificates for your KeeWeb instance. That means that when your certificates expire you aren't locked out of your passwords; instead, the certificates are kept up to date for you. It also means that there is no need to reconfigure and redeploy your password manager every few months.
+To secure your instance, keewee only allows access with encrypted connections. keewee uses [Let's Encrypt](https://letsencrypt.org/) to automatically obtain and renew TLS certificates for your KeeWeb instance. That means that when your certificates expire you aren't locked out of your passwords; instead, the certificates are kept up to date for you. It also means that there is no need to reconfigure and redeploy your password manager every few months.
 
 ## Running keewee
 
